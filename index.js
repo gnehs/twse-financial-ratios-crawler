@@ -59,6 +59,7 @@ async function main() {
     results[code] = { ...await fetchFinancialReport(code, 107), ... await fetchFinancialReport(code, 110) }
     fs.writeFileSync(`./result/${code}.json`, JSON.stringify(results[code], null, 2))
   }
+  clacAverage()
 }
 function accDiv(arg1, arg2) {
   var t1 = 0, t2 = 0, r1, r2;
@@ -82,7 +83,7 @@ function clacAverage() {
       if (!average[year]) average[year] = {}
       for (let key in results[code][year]) {
         if (!average[year][key]) average[year][key] = []
-        average[year][key].push(results[code][year][key])
+        if (results[code][year][key] != 'NA') average[year][key].push(results[code][year][key])
       }
     }
   }
@@ -94,7 +95,7 @@ function clacAverage() {
       average[year][key].forEach(value => {
         sum += parseFloat(value)
       })
-      average[year][key] = accDiv(sum, len).toFixed(2)
+      average[year][key] = accDiv(sum, len).toFixed(2) || ''
     }
   }
   // save json
@@ -127,4 +128,3 @@ function clacAverage() {
   XLSX.writeFile(workbook, `./result/result.xlsx`);
 }
 main()
-clacAverage()
