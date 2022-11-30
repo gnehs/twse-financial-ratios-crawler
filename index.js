@@ -92,10 +92,14 @@ function clacAverage() {
     for (let key in average[year]) {
       let len = average[year][key].length
       let sum = 0
-      average[year][key].forEach(value => {
-        sum += parseFloat(value)
-      })
-      average[year][key] = accDiv(sum, len).toFixed(2) || ''
+      if (len) {
+        average[year][key].forEach(value => {
+          sum += parseFloat(value)
+        })
+        average[year][key] = accDiv(sum, len).toFixed(2)
+      } else {
+        average[year][key] = 'NA'
+      }
     }
   }
   // save json
@@ -127,4 +131,4 @@ function clacAverage() {
   }
   XLSX.writeFile(workbook, `./result/result.xlsx`);
 }
-main()
+clacAverage()
