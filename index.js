@@ -126,5 +126,5 @@ function clacAverage() {
   }
   XLSX.writeFile(workbook, `./result/result.xlsx`);
 }
-// main()
+main()
 clacAverage()
