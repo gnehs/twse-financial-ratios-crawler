@@ -14,7 +14,7 @@ $ git clone https://github.com/gnehs/twse-financial-ratios-crawler.git
 $ cd twse-financial-ratios-crawler
 # 4. 安裝套件
 $ npm install
-# 5. 修改 config.js
+# 5. 修改 config.json 填入需要抓取的股票代號
 # 6. 執行
 $ node index.js
 ```
