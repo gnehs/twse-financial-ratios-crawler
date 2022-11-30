@@ -1,0 +1,26 @@
+{
+  "name": "twse-financial-ratios-crawler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gnehs/twse-financial-ratios-crawler.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gnehs/twse-financial-ratios-crawler/issues"
+  },
+  "homepage": "https://github.com/gnehs/twse-financial-ratios-crawler#readme",
+  "dependencies": {
+    "axios": "^1.2.0",
+    "cheerio": "^1.0.0-rc.12",
+    "cheerio-tableparser": "^1.0.1",
+    "colors": "^1.4.0",
+    "xlsx": "^0.18.5"
+  }
+}
