@@ -38,7 +38,7 @@ async function fetchFinancialReport(code, year = 110) {
   table.map((row, index) => {
     row.forEach((value, index) => {
       if (index == 0) {
-        y = value.replace('年度', '')
+        y = parseInt(value.replace('年度', '')) + 1911
         result[y] = {}
       }
       else {
@@ -131,4 +131,4 @@ function clacAverage() {
   }
   XLSX.writeFile(workbook, `./result/result.xlsx`);
 }
-clacAverage()
+main()
