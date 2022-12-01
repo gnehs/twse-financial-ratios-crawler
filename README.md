@@ -17,4 +17,6 @@ $ npm install
 # 5. 修改 config.json 填入需要抓取的股票代號
 # 6. 執行
 $ node index.js
+# 7. （選用）輸出適合製作圖表的格式
+$ node data-parser,js
 ```
