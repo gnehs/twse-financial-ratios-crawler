@@ -6,7 +6,7 @@ const XLSX = require("xlsx");
     愛之味: require('./result/1217.json'),
     聯華食品: require('./result/1231.json'),
   }
-  let ratesHeader = Object.keys(results['味全']['107'])
+  let ratesHeader = Object.keys(results['味全']['2017'])
   let years = Object.keys(results['味全'])
   let result = []
   for (let rate of ratesHeader) {
