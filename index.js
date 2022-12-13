@@ -56,8 +56,13 @@ async function main() {
   // fetch data
   let results = {}
   for (let code of stocks) {
-    results[code] = { ...await fetchFinancialReport(code, 107), ... await fetchFinancialReport(code, 110) }
-    fs.writeFileSync(`./result/${code}.json`, JSON.stringify(results[code], null, 2))
+    try {
+      results[code] = { ...await fetchFinancialReport(code, 107), ... await fetchFinancialReport(code, 110) }
+      fs.writeFileSync(`./result/${code}.json`, JSON.stringify(results[code], null, 2))
+    } catch (e) {
+      console.error(`Error`, e)
+      console.log(`擷取失敗`.red + ` ${code}`.gray)
+    }
   }
   clacAverage()
 }
