@@ -77,6 +77,13 @@ function accDiv(arg1, arg2) {
   }
 }
 
+function add(num1, num2) {
+  const num1Digits = (num1.toString().split('.')[1] || '').length;
+  const num2Digits = (num2.toString().split('.')[1] || '').length;
+  const baseNum = Math.pow(10, Math.max(num1Digits, num2Digits));
+  return (num1 * baseNum + num2 * baseNum) / baseNum;
+}
+
 function clacAverage() {
   let results = {}
   for (let code of stocks) {
@@ -97,11 +104,13 @@ function clacAverage() {
     for (let key in average[year]) {
       let len = average[year][key].length
       let sum = 0
+      let count = 0
       if (len) {
-        average[year][key].forEach(value => {
-          sum += parseFloat(value)
+        average[year][key].map(x => parseFloat(x)).forEach(val => {
+          sum = add(sum, val)
+          count++
         })
-        average[year][key] = accDiv(sum, len).toFixed(2)
+        average[year][key] = accDiv(sum, count).toFixed(2)
       } else {
         average[year][key] = 'NA'
       }
