@@ -15,6 +15,10 @@ async function fetchPE(code, year, month) {
   return res
 }
 async function main() {
+  if (!fs.existsSync(`./resultPE/`)) {
+    fs.mkdirSync(`./resultPE/`)
+  }
+
   let yearMonths = []
   // reverse years
   for (let i = 6; i >= 0; i--) {
@@ -47,8 +51,7 @@ async function main() {
         log(error)
       }
     }
-    fs.mkdirSync(`./resultPE/`)
-    fs.writeFileSync(`./resultPE/${code}.json`, JSON.stringify(res, null, 2))
+    fs.writeFileSync(`./resultPE/${code}.json`, JSON.stringify(res))
   }
 }
 main()
