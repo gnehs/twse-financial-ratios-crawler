@@ -4,6 +4,7 @@
 <img width="1087" alt="image" src="https://user-images.githubusercontent.com/16719720/204800773-13821e6f-1712-4c12-88fe-c1a91047b940.png">
 
 ## 如何使用
+### 初始化
 ```bash
 # 1. 安裝 Node.js
 # https://nodejs.org/zh-tw/download/
@@ -14,9 +15,20 @@ $ git clone https://github.com/gnehs/twse-financial-ratios-crawler.git
 $ cd twse-financial-ratios-crawler
 # 4. 安裝套件
 $ npm install
-# 5. 修改 config.json 填入需要抓取的股票代號
-# 6. 執行
+```
+### 抓取財務比率
+```bash
+# 1. 修改 config.json 填入需要抓取的股票代號
+# 2. 執行
 $ node index.js
-# 7. （選用）輸出適合製作圖表的格式
+# 3. （選用）輸出適合製作圖表的格式
 $ node data-parser,js
+```
+### 抓取本益比、殖利率、股價淨值比
+```bash
+# 1. 修改 config.json 填入需要抓取的股票代號
+# 2. 執行
+$ node pe.js
+# 3. （選用）輸出適合製作圖表的格式
+$ node pe-parser.js
 ```
