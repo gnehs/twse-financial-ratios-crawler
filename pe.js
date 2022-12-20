@@ -30,8 +30,10 @@ async function main() {
   }
   let count = 0
   for (let code of stocks) {
-    if (fs.existsSync(`./resultPE/${code}.json`))
+    if (fs.existsSync(`./resultPE/${code}.json`)) {
+      count += yearMonths.length
       continue
+    }
     let res = []
     for (let { year, month } of yearMonths) {
       try {
