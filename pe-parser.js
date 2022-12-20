@@ -1,5 +1,6 @@
 const XLSX = require("xlsx");
 const fs = require('fs');
+const config = require('./config.json');
 (function () {
   let now = new Date()
   if (fs.existsSync(`./resultPE/result.xlsx`)) {
@@ -44,20 +45,38 @@ const fs = require('fs');
   XLSX.utils.book_append_sheet(workbook, sheet, '平均');
 
   for (let item of ['本益比', '殖利率(%)', '股價淨值比']) {
-    let headers = [`日期`, ...Object.keys(datas)]
+    let headers = [`日期`, ...config.targetStocks]
     let res = [headers]
     dates.map((date, i) => {
-      let row = [date]
-      for (let code of Object.keys(datas)) {
+      let parsedate = x => {
+        let [year, month, day] = x.split(/年|月|日/g).map(x => parseInt(x))
+        year += 1911
+        return new Date(year + '/' + month + '/' + day)
+      }
+      let row = [parsedate(date)]
+      for (let code of config.targetStocks) {
         let valItem = datas[code].filter(x => x[`日期`] == date)
         if (valItem.length) {
-          row.push(valItem[0][item])
+          let val = parseFloat(valItem[0][item])
+          row.push(val ? val : '')
         } else {
           row.push('')
         }
       }
       res.push(row)
     })
+    for (let i = 2; i < res.length; i++) {
+      let row = res[i]
+      for (let j = 1; j < row.length; j++) {
+        if (row[j] === '') {
+          try {
+            res[i][j] = res[i - 1][j]
+          } catch (e) {
+
+          }
+        }
+      }
+    }
     let sheet = XLSX.utils.json_to_sheet(res)
     XLSX.utils.book_append_sheet(workbook, sheet, item);
   }
