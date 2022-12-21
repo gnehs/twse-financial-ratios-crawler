@@ -47,11 +47,11 @@ const config = require('./config.json');
   for (let item of ['本益比', '殖利率(%)', '股價淨值比']) {
     let headers = [`日期`, ...config.targetStocks]
     let res = [headers]
-    dates.map((date, i) => {
+    dates.map(date => {
       let parsedate = x => {
         let [year, month, day] = x.split(/年|月|日/g).map(x => parseInt(x))
         year += 1911
-        return new Date(year + '/' + month + '/' + day)
+        return year + '/' + month + '/' + day
       }
       let row = [parsedate(date)]
       for (let code of config.targetStocks) {
@@ -79,6 +79,34 @@ const config = require('./config.json');
     }
     let sheet = XLSX.utils.json_to_sheet(res)
     XLSX.utils.book_append_sheet(workbook, sheet, item);
+
+    // calc monthly average
+    let monthly = {}
+    for (let i = 1; i < res.length; i++) {
+      let [date, ...values] = res[i]
+      let [year, month] = date.split('/')
+      let key = year + '/' + month
+      if (!monthly[key]) {
+        monthly[key] = []
+      }
+      monthly[key].push(values)
+    }
+    let monthlyAverage = []
+    for (let [key, values] of Object.entries(monthly)) {
+      let items = []
+      for (let i = 0; i < values[0].length; i++) {
+        let vals = values.map(x => x[i]).filter(x => x != '')
+        if (vals.length) {
+          let avg = vals.reduce((a, b) => a + b, 0) / vals.length
+          items.push(parseFloat(avg.toFixed(2)))
+        } else {
+          items.push('')
+        }
+      }
+      monthlyAverage.push([key, ...items])
+    }
+    let sheetMonthly = XLSX.utils.json_to_sheet(monthlyAverage)
+    XLSX.utils.book_append_sheet(workbook, sheetMonthly, `${item}月均`);
   }
   XLSX.writeFile(workbook, `./resultPE/result.xlsx`);
   console.log(`time: ${new Date() - now}ms`)
