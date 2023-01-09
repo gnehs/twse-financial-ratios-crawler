@@ -1,4 +1,8 @@
 # 公開資訊觀測站 - 財務比率抓取
+## Electron 版
+這裡有透過 Electron 包裝後的抓取工具，並提供了友善的介面與更好用的年份選取工具
+https://github.com/gnehs/twse-financial-ratios-crawler-electron
+
 ## 介紹
 透過指定的股票代號清單自動抓取財務比率資訊，並自動計算平均
 <img width="1087" alt="image" src="https://user-images.githubusercontent.com/16719720/204800773-13821e6f-1712-4c12-88fe-c1a91047b940.png">
